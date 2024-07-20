@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -11,16 +11,18 @@ namespace CRUD
         string filePath  = "/Users/Tung/Projects/CreateReplaceUpdateDelete/CreateReplaceUpdateDelete/Storage/storage.txt";
 
         private List<ProductModels> _products = new List<ProductModels>();
-        Program program = new Program();
 
         public void Add()
         {
             Console.WriteLine("Enter product name: ");
             string? name = Console.ReadLine();
+            name = replace(name);
             Console.WriteLine("Enter product color: ");
             string? color = Console.ReadLine();
+            color = replace(color);
             Console.WriteLine("Enter product type: ");
             string? type = Console.ReadLine();
+            type = replace(type);
             Console.WriteLine("Enter product quantity: ");
 
             if (!int.TryParse(Console.ReadLine(), out int quantity))
@@ -51,10 +53,13 @@ namespace CRUD
                     ProductModels productToEdit = _products[num - 1];
                     Console.WriteLine("Change name into ... ");
                     productToEdit.Name = Console.ReadLine();
+                    productToEdit.Name = replace(productToEdit.Name);
                     Console.WriteLine("Change color into ... ");
                     productToEdit.Color = Console.ReadLine();
+                    productToEdit.Color = replace(productToEdit.Color);
                     Console.WriteLine("Change type into ... ");
                     productToEdit.Type = Console.ReadLine();
+                    productToEdit.Type = replace(productToEdit.Type);
                     Console.WriteLine("Change quantity into ... ");
                     if (!int.TryParse(Console.ReadLine(), out int Quantity))
                     {
@@ -79,6 +84,11 @@ namespace CRUD
             {
                 Console.WriteLine("Error");
             }
+        }
+
+        private string replace(string part)
+        {
+             return part.Replace(" ", "_");
         }
 
         public void Delete()
@@ -154,7 +164,7 @@ namespace CRUD
             Console.WriteLine("Products:");
             for (int i = 0; i < _products.Count; i++)
             {
-                Console.WriteLine((i + 1) + ". Name" + _products[i].Name);
+                Console.WriteLine((i + 1) + ". Name: " + _products[i].Name);
                 Console.WriteLine("   Color: " + _products[i].Color);
                 Console.WriteLine("   Type: " + _products[i].Type);
                 Console.WriteLine("   Quantity: " + _products[i].Quantity);
